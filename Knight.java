@@ -31,35 +31,15 @@ public class Knight extends Actor
         else if(Greenfoot.isKeyDown("d")){
             move(2);
             
-        }        
-        jump();
-    }
-    
-    public void jump()
-    {
+        }   
+        
         if(Greenfoot.isKeyDown("w"))
         {
-            int x = getX();
-            int y = getY();
-            if(jumpTimer.millisElapsed() > 30)
-            {
-                if(counter <= 5)
-                {
-                    setLocation(x, y - 10);
-                    counter+= 1;
-                    jumpTimer.mark();
-                }
-                else
-                {
-                    if(counter >= 10)
-                    {
-                        counter = 0;
-                    }
-                    setLocation(x, y + 10);
-                    counter += 1;
-                    jumpTimer.mark();
-                }           
-            }
+            setLocation(getX(), getY() - 2);
+        }
+        else if(Greenfoot.isKeyDown("s"))
+        {
+            setLocation(getX(), getY() + 2);
         }
     }
 }
