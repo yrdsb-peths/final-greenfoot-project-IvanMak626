@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -20,5 +19,9 @@ public class MyWorld extends World
         
         Knight knight = new Knight();
         addObject(knight, 300, 300);
+        
+        Fireball fireball = new Fireball();
+        addObject(fireball, knight.getX(), knight.getY());
+        
     }
 }

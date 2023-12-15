@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-    Label titleLabel = new Label("My game", 60);
+    Label titleLabel = new Label("Raid shadow legends", 60);
     /**
      * Constructor for objects of class TitleScreen.
      * 
@@ -33,8 +33,6 @@ public class TitleScreen extends World
     
     private void prepare()
     {
-        Knight knight = new Knight();
-        addObject(knight,520,105);
         Label label = new Label("Use \u2190 and \u2192 to Move", 50);
         addObject(label,getWidth()/2,220);
         Label labelOne = new Label("Press <space> to Start", 50);

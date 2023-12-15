@@ -8,13 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Knight extends Actor
 {
-    GreenfootImage knightImage = new GreenfootImage("images/knight sprite.png");
-    /**
-     * Act - do whatever the Knight wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
     public Knight()
     {
+        GreenfootImage knightImage = new GreenfootImage("images/knight sprite.png");
         knightImage.scale(120, 100);
         setImage(knightImage);
     }
@@ -22,24 +19,27 @@ public class Knight extends Actor
     
     SimpleTimer jumpTimer = new SimpleTimer();
     int counter = 0;
+
     public void act()
     {
-        if(Greenfoot.isKeyDown("a")){
-            move(-2);
+            if(Greenfoot.isKeyDown("a")){
+                move(-2);
+                
+            }
+            else if(Greenfoot.isKeyDown("d")){
+                move(2);
+                
+            }   
             
-        }
-        else if(Greenfoot.isKeyDown("d")){
-            move(2);
-            
-        }   
-        
-        if(Greenfoot.isKeyDown("w"))
-        {
-            setLocation(getX(), getY() - 2);
-        }
-        else if(Greenfoot.isKeyDown("s"))
-        {
-            setLocation(getX(), getY() + 2);
-        }
+            if(Greenfoot.isKeyDown("w"))
+            {
+                setLocation(getX(), getY() - 2);
+            }
+            else if(Greenfoot.isKeyDown("s"))
+            {
+                setLocation(getX(), getY() + 2);
+            }
     }
+    
+    
 }
