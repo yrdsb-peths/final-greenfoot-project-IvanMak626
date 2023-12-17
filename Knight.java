@@ -16,30 +16,53 @@ public class Knight extends Actor
         setImage(knightImage);
     }
     
-    
+    int jumpSpeed = 0;
     SimpleTimer jumpTimer = new SimpleTimer();
-    int counter = 0;
-
+    int upCounter = 0;
+    int downCounter = 0;
+    
     public void act()
     {
-            if(Greenfoot.isKeyDown("a")){
-                move(-2);
-                
-            }
-            else if(Greenfoot.isKeyDown("d")){
-                move(2);
-                
-            }   
+        jump();
+        setLocation(getX(), getY() - jumpSpeed);
+        
+        if(Greenfoot.isKeyDown("a")){
+            move(-2);
             
-            if(Greenfoot.isKeyDown("w"))
+        }
+        else if(Greenfoot.isKeyDown("d")){
+            move(2);
+            
+        }   
+        
+        if(Greenfoot.isKeyDown("space"))
+        {
+            if(jumpSpeed == 0)
             {
-                setLocation(getX(), getY() - 2);
+                jumpSpeed = 4;
             }
-            else if(Greenfoot.isKeyDown("s"))
-            {
-                setLocation(getX(), getY() + 2);
-            }
+        }
     }
     
-    
+    public void jump()
+    {
+        if(upCounter > 13)
+        {
+            jumpSpeed = -4;
+            upCounter = 0;
+        }
+        else if(downCounter > 13)
+        {
+            jumpSpeed = 0;
+            downCounter = 0;
+        }
+        if(jumpSpeed > 0)
+        {
+            upCounter += 1;
+        }
+        else if(jumpSpeed < 0)
+        {
+            downCounter += 1;
+        }
+    }
 }

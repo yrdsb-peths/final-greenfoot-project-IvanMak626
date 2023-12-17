@@ -79,15 +79,10 @@ public class Fireball extends Actor
         }
     }
     
-    
     public void act()
     {
         MouseInfo mouseInfo = Greenfoot.getMouseInfo();
-        if(mouseInfo == null)
-        {
-            System.out.println("wrnog");
-        }
-        else
+        if(mouseInfo != null && Greenfoot.mouseClicked(null) == true)
         {
             if(mouseInfo.getX() > 300)
             {
@@ -97,16 +92,10 @@ public class Fireball extends Actor
             {
                 facing = "left";
             }
-            else if(mouseInfo.getY() > 300)
-            {
-                facing = "down";
-            }
-            else if(mouseInfo.getY() < 300)
-            {
-                facing = "up";
-            }
+            
         }
-    
+        
+        
         animateFireBall();
     }
 }

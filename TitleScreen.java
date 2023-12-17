@@ -8,23 +8,21 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-    Label titleLabel = new Label("Raid shadow legends", 60);
-    /**
-     * Constructor for objects of class TitleScreen.
-     * 
-     */
+    StartButton startButton = new StartButton();
+    TitleLabel titleLabel = new TitleLabel();
+    
     public TitleScreen()
-    {    
+    {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(600, 400, 1);
         
-        addObject(titleLabel, 220, 100);
+        
         prepare();
     }
     
     public void act()
     {
-        if(Greenfoot.isKeyDown("space"))
+        if(Greenfoot.mouseClicked(startButton))
         {
             MyWorld gameWorld = new MyWorld();
             Greenfoot.setWorld(gameWorld);
@@ -33,9 +31,9 @@ public class TitleScreen extends World
     
     private void prepare()
     {
+        addObject(titleLabel, 300, 90);
+        addObject(startButton, 300, 300);
         Label label = new Label("Use \u2190 and \u2192 to Move", 50);
-        addObject(label,getWidth()/2,220);
-        Label labelOne = new Label("Press <space> to Start", 50);
-        addObject(labelOne,getWidth()/2,300);
+        addObject(label, getWidth()/2, 175);
     }
 }
