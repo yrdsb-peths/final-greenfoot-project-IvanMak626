@@ -8,26 +8,36 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
+    public String facing = "right";
     public Knight knight = new Knight();
     Fireball fireball = new Fireball();
+    int fireMove = 0;
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
         
         addObject(knight, 300, 350);
-        
-        MouseInfo mouseInfo = Greenfoot.getMouseInfo();
-        
-        if(Greenfoot.mouseClicked(null))
-        {
-            addObject(fireball, knight.getX(), knight.getY());
-        }
     }
     
     public void act()
     {
-        fireball.setLocation(knight.getX(), knight.getY());
-        
+        MouseInfo mouseInfo = Greenfoot.getMouseInfo();
+        fireball.move(fireMove);
+        if(Greenfoot.mouseClicked(null) == true)
+        {
+            if(mouseInfo.getX() > knight.getX())
+            {
+                fireMove = 3;
+                fireball.fireDirection("right");
+                addObject(fireball, knight.getX(), knight.getY());
+            }
+            else if(mouseInfo.getX() < knight.getX())
+            {
+                fireMove = -3;
+                fireball.fireDirection("left");
+                addObject(fireball, knight.getX(), knight.getY());
+            }
+        }
     }
 }

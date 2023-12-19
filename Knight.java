@@ -8,31 +8,71 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Knight extends Actor
 {
-    
-    public Knight()
-    {
-        GreenfootImage knightImage = new GreenfootImage("images/knight sprite.png");
-        knightImage.scale(120, 100);
-        setImage(knightImage);
-    }
+    GreenfootImage[] knightRight = new GreenfootImage[8];
+    GreenfootImage[] knightLeft = new GreenfootImage[8];
     
     int jumpSpeed = 0;
     SimpleTimer jumpTimer = new SimpleTimer();
     int upCounter = 0;
     int downCounter = 0;
     
+    SimpleTimer animationTimer = new SimpleTimer();
+    String facing = "right";
+    
+    public Knight()
+    {
+        for(int i = 0; i < knightRight.length; i++)
+        {
+            knightRight[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
+            knightRight[i].mirrorHorizontally();
+            knightRight[i].scale(100, 100);
+        }
+        
+        for(int i = 0; i < knightLeft.length; i++)
+        {
+            knightLeft[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
+            knightLeft[i].scale(100, 100);
+        }
+        
+        animationTimer.mark();
+        setImage(knightRight[0]);
+    }
+    
+    int imageIndex = 0;
+    public void animateKnight()
+    {
+        if(animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        animationTimer.mark();
+        
+        if(facing.equals("right"))
+        {
+            setImage(knightRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % knightRight.length;
+        } 
+        else if(facing.equals("left"))
+        {
+            setImage(knightLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % knightLeft.length;
+        }
+    }
+    
+    
     public void act()
     {
+        animateKnight();
         jump();
         setLocation(getX(), getY() - jumpSpeed);
         
         if(Greenfoot.isKeyDown("a")){
             move(-2);
-            
+            facing = "left";
         }
         else if(Greenfoot.isKeyDown("d")){
             move(2);
-            
+            facing = "right";
         }   
         
         if(Greenfoot.isKeyDown("space"))
