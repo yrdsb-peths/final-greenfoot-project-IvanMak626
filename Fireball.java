@@ -8,32 +8,33 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Fireball extends Actor
 {
-    GreenfootImage[] idleRight = new GreenfootImage[8];
-    GreenfootImage[] idleLeft = new GreenfootImage[8];    
+    GreenfootImage[] fireRight = new GreenfootImage[8];
+    GreenfootImage[] fireLeft = new GreenfootImage[8];    
     
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
-
+    
     
     public Fireball()
     {
-        for(int i = 0; i < idleRight.length; i++)
+        for(int i = 0; i < fireRight.length; i++)
         {
-            idleRight[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
-            idleRight[i].mirrorHorizontally();
-            idleRight[i].scale(100, 100);
+            fireRight[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
+            fireRight[i].mirrorHorizontally();
+            fireRight[i].scale(100, 100);
         }
         
-        for(int i = 0; i < idleLeft.length; i++)
+        for(int i = 0; i < fireLeft.length; i++)
         {
-            idleLeft[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
-            idleLeft[i].scale(100, 100);
+            fireLeft[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
+            fireLeft[i].scale(100, 100);
         }
         
         
         animationTimer.mark();
-        setImage(idleRight[0]);
+        setImage(fireRight[0]);
     }
+    
     
     int imageIndex = 0;
     public void animateFireBall()
@@ -46,24 +47,42 @@ public class Fireball extends Actor
         
         if(facing.equals("right"))
         {
-            setImage(idleRight[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleRight.length;
+            setImage(fireRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % fireRight.length;
         } 
         else if(facing.equals("left"))
         {
-            setImage(idleLeft[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleLeft.length;
+            setImage(fireLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % fireLeft.length;
+        }
+        else
+        {
+            return;
         }
     }
+    
     
     public void act()
     {         
         animateFireBall();
+        hitOrc();
     }
+    
     
     public void fireDirection(String direction)
     {
         facing = direction;
         
+    }
+    
+    
+    public void hitOrc()
+    {
+        if(isTouching(Orc.class))
+        {
+            removeTouching(Orc.class);
+            facing = "null";
+            getWorld().removeObject(this);
+        }
     }
 }
