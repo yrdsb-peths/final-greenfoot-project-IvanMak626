@@ -14,6 +14,7 @@ public class Orc extends Actor
     SimpleTimer animationTimer = new SimpleTimer();
     String facing = "right";
     
+    
     public Orc()
     {
         for(int i = 0; i < orcRight.length; i++)
@@ -66,11 +67,6 @@ public class Orc extends Actor
         
     }
     
-    public void orcDirection(String direction)
-    {
-        facing = direction;
-    }
-    
     public void hitFireball()
     {
         if(isTouching(Fireball.class))
@@ -79,5 +75,22 @@ public class Orc extends Actor
             facing = "null";
             getWorld().removeObject(this);
         }
+    }
+    
+    
+    
+    public void orcDirection(String direction)
+    {
+        facing = direction;
+    }
+    
+    
+    public boolean isOrcSpawned(boolean hit)
+    {
+        if(isTouching(Fireball.class))
+        {
+            hit = false;
+        }
+        return hit;
     }
 }
