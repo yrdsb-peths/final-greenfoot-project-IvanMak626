@@ -13,10 +13,15 @@ public class Fireball extends Actor
     
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
+    int imageIndex = 0;
+    int fireMove = 0;
+    
+    MouseInfo mouseInfo = Greenfoot.getMouseInfo();
     
     
     public Fireball()
     {
+        
         for(int i = 0; i < fireRight.length; i++)
         {
             fireRight[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
@@ -32,11 +37,10 @@ public class Fireball extends Actor
         
         
         animationTimer.mark();
-        setImage(fireRight[0]);
     }
     
     
-    int imageIndex = 0;
+    
     public void animateFireBall()
     {
         if(animationTimer.millisElapsed() < 100)
@@ -63,11 +67,16 @@ public class Fireball extends Actor
     
     
     public void act()
-    {         
-        animateFireBall();
+    {
         hitOrc();
+        move(fireMove);
+        animateFireBall();
     }
     
+    public void fireSpeed(int moveFire)
+    {
+        fireMove = moveFire;
+    }
     
     public void fireDirection(String direction)
     {
@@ -80,8 +89,10 @@ public class Fireball extends Actor
     {
         if(isTouching(Orc.class))
         {
-            removeTouching(Orc.class);
+            //removeTouching(Orc.class);
             facing = "null";
+            Orc orc = (Orc) getOneIntersectingObject(Orc.class);
+            orc.hitFireball();
             getWorld().removeObject(this);
         }
     }

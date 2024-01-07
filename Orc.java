@@ -13,7 +13,7 @@ public class Orc extends Actor
     
     SimpleTimer animationTimer = new SimpleTimer();
     String facing = "right";
-    
+    int health;
     
     public Orc()
     {
@@ -33,12 +33,12 @@ public class Orc extends Actor
         
         animationTimer.mark();
         setImage(orcRight[0]);
+        this.health = 1;
     }
     
     public void act()
     {
         animateOrc();
-        hitFireball();
     }
     
     int imageIndex = 0;
@@ -66,31 +66,21 @@ public class Orc extends Actor
         }
         
     }
+
     
     public void hitFireball()
     {
-        if(isTouching(Fireball.class))
+        health--;
+        if(health == 0)
         {
-            removeTouching(Fireball.class);
             facing = "null";
             getWorld().removeObject(this);
         }
     }
     
     
-    
     public void orcDirection(String direction)
     {
         facing = direction;
-    }
-    
-    
-    public boolean isOrcSpawned(boolean hit)
-    {
-        if(isTouching(Fireball.class))
-        {
-            hit = false;
-        }
-        return hit;
     }
 }

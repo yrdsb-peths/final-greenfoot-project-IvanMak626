@@ -66,6 +66,7 @@ public class Knight extends Actor
         jump();
         setLocation(getX(), getY() - jumpSpeed);
         
+
         if(Greenfoot.isKeyDown("a")){
             move(-2);
             facing = "left";
