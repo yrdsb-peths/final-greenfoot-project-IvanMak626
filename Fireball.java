@@ -68,7 +68,14 @@ public class Fireball extends Actor
     
     public void act()
     {
-        hitOrc();
+        if (getX() == getWorld().getWidth()-1 || getX() == 0)
+        {
+            getWorld().removeObject(this);
+        }
+        if(isTouching(Orc.class))
+        {
+            hitOrc();
+        }
         move(fireMove);
         animateFireBall();
     }
@@ -77,6 +84,7 @@ public class Fireball extends Actor
     {
         fireMove = moveFire;
     }
+    
     
     public void fireDirection(String direction)
     {
@@ -87,13 +95,11 @@ public class Fireball extends Actor
     
     public void hitOrc()
     {
-        if(isTouching(Orc.class))
-        {
-            //removeTouching(Orc.class);
-            facing = "null";
-            Orc orc = (Orc) getOneIntersectingObject(Orc.class);
-            orc.hitFireball();
-            getWorld().removeObject(this);
-        }
+        //removeTouching(Orc.class);
+        facing = "null";
+        Orc orc = (Orc) getOneIntersectingObject(Orc.class);
+        orc.hitFireball();
+        getWorld().removeObject(this);
+    
     }
 }

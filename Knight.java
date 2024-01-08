@@ -68,11 +68,11 @@ public class Knight extends Actor
         
 
         if(Greenfoot.isKeyDown("a")){
-            move(-2);
+            move(-3);
             facing = "left";
         }
         else if(Greenfoot.isKeyDown("d")){
-            move(2);
+            move(3);
             facing = "right";
         }   
         

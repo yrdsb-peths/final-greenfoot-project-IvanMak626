@@ -78,6 +78,10 @@ public class Orc extends Actor
         }
     }
     
+    public void moveOrc(int orcMovement)
+    {
+        
+    }
     
     public void orcDirection(String direction)
     {

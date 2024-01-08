@@ -10,7 +10,7 @@ public class MyWorld extends World
 {
     SimpleTimer orcTimer = new SimpleTimer();
     Knight knight = new Knight();
-    
+    Orc orc = new Orc();
     
     boolean orcSpawned = false;
     boolean fireballSpawned = false;
@@ -21,7 +21,8 @@ public class MyWorld extends World
         super(600, 400, 1);
                 
         addObject(knight, 300, 350);
-        
+        addObject(orc, 0, 350);
+        orcSpawned = true;
     }
     
     
@@ -35,6 +36,15 @@ public class MyWorld extends World
                 spawnFireball();
             }
             
+        }
+        
+        if(orc.getX() > knight.getX())
+        {
+            orc.move(-1);
+        }
+        else if(orc.getX() < knight.getX())
+        {
+            orc.move(1);
         }
         
         if(orcTimer.millisElapsed() > 3000)
@@ -58,24 +68,29 @@ public class MyWorld extends World
         fireballSpawned = true;
         if(Greenfoot.getMouseInfo().getX() > knight.getX())
         {
-            fireball.fireSpeed(3);
+            fireball.fireSpeed(4);
             fireball.fireDirection("right");
             addObject(fireball, knight.getX(), knight.getY());
         }
         else if(Greenfoot.getMouseInfo().getX() < knight.getX())
         {
-            fireball.fireSpeed(-3);
+            fireball.fireSpeed(-4);
             fireball.fireDirection("left");
             addObject(fireball, knight.getX(), knight.getY());
         }
     }
     
     
+    /* every act, check if orc is on left/right side of knight.
+     * if on right side of knight, move +3.
+     * if on left side of knight, move -3.
+    */
     public void spawnOrc()
     {
         int randomSpawn = Greenfoot.getRandomNumber(2);
-        Orc orc = new Orc();
+        orc = new Orc();
         orcSpawned = true;
+        
         if(randomSpawn == 1)
         {
             addObject(orc, 0, 350);
@@ -87,5 +102,4 @@ public class MyWorld extends World
             orc.orcDirection("right");
         }
     }
-    
 }
