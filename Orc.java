@@ -14,6 +14,7 @@ public class Orc extends Actor
     SimpleTimer animationTimer = new SimpleTimer();
     String facing = "right";
     int health;
+    int moveLength = 0;
     
     public Orc()
     {
@@ -39,6 +40,7 @@ public class Orc extends Actor
     public void act()
     {
         animateOrc();
+        orcMovement();
     }
     
     int imageIndex = 0;
@@ -78,10 +80,13 @@ public class Orc extends Actor
         }
     }
     
-    public void moveOrc(int orcMovement)
+    public void orcMovement()
     {
-        
+        MyWorld world = (MyWorld) getWorld();
+        world.getKnightPos();
     }
+    
+    
     
     public void orcDirection(String direction)
     {

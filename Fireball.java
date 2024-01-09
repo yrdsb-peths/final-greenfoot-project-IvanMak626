@@ -68,13 +68,15 @@ public class Fireball extends Actor
     
     public void act()
     {
-        if (getX() == getWorld().getWidth()-1 || getX() == 0)
-        {
-            getWorld().removeObject(this);
-        }
+        
         if(isTouching(Orc.class))
         {
             hitOrc();
+        }
+        else if(getX() == 0 || getX() == getWorld().getWidth()-1)
+        {
+            facing = "null";
+            getWorld().removeObject(this);
         }
         move(fireMove);
         animateFireBall();

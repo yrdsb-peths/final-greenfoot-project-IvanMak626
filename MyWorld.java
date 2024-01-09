@@ -21,15 +21,14 @@ public class MyWorld extends World
         super(600, 400, 1);
                 
         addObject(knight, 300, 350);
-        addObject(orc, 0, 350);
-        orcSpawned = true;
+        spawnOrc();
     }
     
     
     public void act()
     {
         if(Greenfoot.mouseClicked(null) == true)
-        {           
+        {
             fireballSpawned = getObjects(Fireball.class).size() != 0;
             if(fireballSpawned == false)
             {
@@ -38,14 +37,7 @@ public class MyWorld extends World
             
         }
         
-        if(orc.getX() > knight.getX())
-        {
-            orc.move(-1);
-        }
-        else if(orc.getX() < knight.getX())
-        {
-            orc.move(1);
-        }
+        
         
         if(orcTimer.millisElapsed() > 3000)
         {
@@ -77,6 +69,19 @@ public class MyWorld extends World
             fireball.fireSpeed(-4);
             fireball.fireDirection("left");
             addObject(fireball, knight.getX(), knight.getY());
+        }
+    }
+    
+    
+    public void getKnightPos()
+    {
+        if(orc.getX() > knight.getX())
+        {
+            orc.move(-1);
+        }
+        else if(orc.getX() < knight.getX())
+        {
+            orc.move(1);
         }
     }
     
