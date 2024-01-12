@@ -12,6 +12,7 @@ public class MyWorld extends World
     Knight knight = new Knight();
     Orc orc = new Orc();
     
+    
     boolean orcSpawned = false;
     boolean fireballSpawned = false;
     
@@ -22,6 +23,7 @@ public class MyWorld extends World
                 
         addObject(knight, 300, 350);
         spawnOrc();
+        buildPlatform();
     }
     
     
@@ -37,8 +39,6 @@ public class MyWorld extends World
             
         }
         
-        
-        
         if(orcTimer.millisElapsed() > 3000)
         {
             // true if at least 1 orc in world
@@ -52,7 +52,24 @@ public class MyWorld extends World
         }
     }
     
-    
+    public void buildPlatform()
+    {
+        for(int i = 0; i < getWidth()-1; i++)
+        {
+            if(i % 20 == 10)
+            {
+                Block blockOne = new Block();
+                Block blockTwo = new Block();
+                
+                addObject(blockOne, i, 266);
+                addObject(blockTwo, i, 133);
+            }
+        }
+        Ladder ladderOne = new Ladder();
+        addObject(ladderOne, 50, 133);
+        Ladder ladderTwo = new Ladder();
+        addObject(ladderTwo, 550, 266);
+    }
     
     public void spawnFireball()
     {

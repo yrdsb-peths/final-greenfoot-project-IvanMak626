@@ -25,13 +25,13 @@ public class Knight extends Actor
         {
             knightRight[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
             knightRight[i].mirrorHorizontally();
-            knightRight[i].scale(100, 100);
+            knightRight[i].scale(80, 80);
         }
         
         for(int i = 0; i < knightLeft.length; i++)
         {
             knightLeft[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
-            knightLeft[i].scale(100, 100);
+            knightLeft[i].scale(80, 80);
         }
         
         animationTimer.mark();

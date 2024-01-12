@@ -97,7 +97,6 @@ public class Fireball extends Actor
     
     public void hitOrc()
     {
-        //removeTouching(Orc.class);
         facing = "null";
         Orc orc = (Orc) getOneIntersectingObject(Orc.class);
         orc.hitFireball();

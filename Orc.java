@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Orc extends Actor
+public class Orc extends Enemy
 {
     GreenfootImage[] orcRight = new GreenfootImage[8];
     GreenfootImage[] orcLeft = new GreenfootImage[8];
