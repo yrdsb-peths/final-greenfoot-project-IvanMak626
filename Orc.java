@@ -22,25 +22,25 @@ public class Orc extends Enemy
         {
             orcRight[i] = new GreenfootImage("images/orc spritesheet/sprite_0" + (i + 88) + ".png");
             orcRight[i].mirrorHorizontally();
-            orcRight[i].scale(100, 100);
+            orcRight[i].scale(85, 85);
         }
         
         for(int i = 0; i < orcLeft.length; i++)
         {
             orcLeft[i] = new GreenfootImage("images/orc spritesheet/sprite_0" + (i + 88) + ".png");
-            orcLeft[i].scale(100, 100);
+            orcLeft[i].scale(85, 85);
         }
         
         
         animationTimer.mark();
         setImage(orcRight[0]);
-        this.health = 1;
+        this.health = 5;
     }
     
     public void act()
     {
         animateOrc();
-        orcMovement();
+        orcAction();
     }
     
     int imageIndex = 0;
@@ -80,10 +80,11 @@ public class Orc extends Enemy
         }
     }
     
-    public void orcMovement()
+    public void orcAction()
     {
         MyWorld world = (MyWorld) getWorld();
         world.getKnightPos();
+        world.orcHealth();
     }
     
     

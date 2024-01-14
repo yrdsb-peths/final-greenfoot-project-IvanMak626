@@ -15,12 +15,20 @@ public class Ladder extends Actor
     public Ladder()
     {
         GreenfootImage ladderImage = new GreenfootImage("images/ladder sprite.png");
-        ladderImage.scale(60, 60);
+        ladderImage.scale(170, 170);
         setImage(ladderImage);
     }
     
+    
+    
     public void act()
     {
-        // Add your action code here.
+        MyWorld world = (MyWorld) getWorld();
+        if(isTouching(Knight.class) && Greenfoot.isKeyDown("e"))
+        {
+            world.ladderTouchKnight();
+        }
     }
+    
+    
 }

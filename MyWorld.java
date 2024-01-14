@@ -11,24 +11,30 @@ public class MyWorld extends World
     SimpleTimer orcTimer = new SimpleTimer();
     Knight knight = new Knight();
     Orc orc = new Orc();
-    
+    Ladder ladderOne = new Ladder();
+    Ladder ladderTwo = new Ladder();
+    Healthbar healthbar = new Healthbar();
     
     boolean orcSpawned = false;
     boolean fireballSpawned = false;
+    
+    int totalSpawned = 0;
+    int towerStage = 1;
     
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
-                
-        addObject(knight, 300, 350);
-        spawnOrc();
+        
         buildPlatform();
+        addObject(knight, 300, 363);
+        spawnOrc();
     }
     
     
     public void act()
     {
+        ladderClimb();
         if(Greenfoot.mouseClicked(null) == true)
         {
             fireballSpawned = getObjects(Fireball.class).size() != 0;
@@ -39,18 +45,22 @@ public class MyWorld extends World
             
         }
         
-        if(orcTimer.millisElapsed() > 3000)
+        
+        // true if at least 1 orc in world
+        orcSpawned = getObjects(Orc.class).size() != 0; 
+        if(orcSpawned == false)
         {
-            // true if at least 1 orc in world
-            orcSpawned = getObjects(Orc.class).size() != 0; 
-            if(orcSpawned == false)
+            if(totalSpawned == 3 && orcSpawned == false)
             {
-                spawnOrc();
+                totalSpawned = 4;
             }
-            
-            orcTimer.mark();
+            spawnOrc();
         }
+        
+        orcTimer.mark();
+        
     }
+    
     
     public void buildPlatform()
     {
@@ -65,11 +75,10 @@ public class MyWorld extends World
                 addObject(blockTwo, i, 133);
             }
         }
-        Ladder ladderOne = new Ladder();
-        addObject(ladderOne, 50, 133);
-        Ladder ladderTwo = new Ladder();
-        addObject(ladderTwo, 550, 266);
+        addObject(ladderOne, 50, 195);
+        addObject(ladderTwo, 550, 330);
     }
+    
     
     public void spawnFireball()
     {
@@ -100,28 +109,42 @@ public class MyWorld extends World
         {
             orc.move(1);
         }
+        
     }
     
     
-    /* every act, check if orc is on left/right side of knight.
-     * if on right side of knight, move +3.
-     * if on left side of knight, move -3.
-    */
+    public void ladderTouchKnight()
+    {
+        if(knight.getY() > 266 && totalSpawned > 3)
+        {
+            knight.climbLadder();
+        }
+    }
+    
+    
+    public void ladderClimb()
+    {
+        if(totalSpawned > 3)
+        {
+            knight.points(4);
+        }
+    }
+    
     public void spawnOrc()
     {
-        int randomSpawn = Greenfoot.getRandomNumber(2);
         orc = new Orc();
         orcSpawned = true;
-        
-        if(randomSpawn == 1)
+        if(totalSpawned < 3)
         {
-            addObject(orc, 0, 350);
-            orc.orcDirection("left");
-        }
-        else if(randomSpawn == 0)
-        {
-            addObject(orc, 600, 350);
+            totalSpawned++;
+            addObject(orc, 600, 360);
             orc.orcDirection("right");
+            addObject(healthbar, orc.getX()+3, orc.getY()-22);
         }
+    }
+    
+    public void orcHealth()
+    {
+        healthbar.setLocation(orc.getX()+3, orc.getY()-22);
     }
 }

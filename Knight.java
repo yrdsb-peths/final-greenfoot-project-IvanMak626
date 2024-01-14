@@ -12,6 +12,11 @@ public class Knight extends Actor
     GreenfootImage[] knightLeft = new GreenfootImage[8];
     
     int jumpSpeed = 0;
+    int climbSpeedX = 0;
+    int climbSpeedY = 0;
+    
+    int totalPoints = 0;
+    
     SimpleTimer jumpTimer = new SimpleTimer();
     int upCounter = 0;
     int downCounter = 0;
@@ -64,25 +69,45 @@ public class Knight extends Actor
     {
         animateKnight();
         jump();
-        setLocation(getX(), getY() - jumpSpeed);
-        
-
-        if(Greenfoot.isKeyDown("a")){
-            move(-3);
-            facing = "left";
-        }
-        else if(Greenfoot.isKeyDown("d")){
-            move(3);
-            facing = "right";
-        }   
-        
-        if(Greenfoot.isKeyDown("space"))
+        climbLadder();
+        if(totalPoints > 3)
         {
-            if(jumpSpeed == 0)
+            if(getX() > 510 && getX() < 580 && getY() > 213 && Greenfoot.isKeyDown("e"))
             {
-                jumpSpeed = 4;
+                setLocation(getX() + climbSpeedX, getY() - climbSpeedY);
+            }
+            
+            if(getX() > 0 && getX() < 85 && getY() > 83 && Greenfoot.isKeyDown("e"))
+            {
+                setLocation(getX() + climbSpeedX, getY() - climbSpeedY);
             }
         }
+        setLocation(getX(), getY() - jumpSpeed);
+        
+        if(getY() == 363 || getY() == 213 || getY() == 83 || upCounter != 0 || downCounter != 0)
+        {
+            if(Greenfoot.isKeyDown("a")){
+                move(-3);
+                facing = "left";
+            }
+            else if(Greenfoot.isKeyDown("d")){
+                move(3);
+                facing = "right";
+            }
+            
+            if(Greenfoot.isKeyDown("space"))
+            {
+                if(jumpSpeed == 0)
+                {
+                    jumpSpeed = 4;
+                }
+            }
+        }
+    }
+    
+    public void points(int total)
+    {
+        totalPoints = total;
     }
     
     public void jump()
@@ -104,6 +129,17 @@ public class Knight extends Actor
         else if(jumpSpeed < 0)
         {
             downCounter += 1;
+        }
+    }
+    
+    
+    
+    public void climbLadder()
+    {
+        if(getY() > 266)
+        {
+            climbSpeedX = 1;
+            climbSpeedY = 5;
         }
     }
 }
