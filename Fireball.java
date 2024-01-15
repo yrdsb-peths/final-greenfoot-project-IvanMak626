@@ -26,13 +26,13 @@ public class Fireball extends Actor
         {
             fireRight[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
             fireRight[i].mirrorHorizontally();
-            fireRight[i].scale(100, 100);
+            fireRight[i].scale(70, 70);
         }
         
         for(int i = 0; i < fireLeft.length; i++)
         {
             fireLeft[i] = new GreenfootImage("images/fireball_1/fireball0" + i + ".png");
-            fireLeft[i].scale(100, 100);
+            fireLeft[i].scale(70, 70);
         }
         
         

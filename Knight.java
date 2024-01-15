@@ -12,16 +12,13 @@ public class Knight extends Actor
     GreenfootImage[] knightLeft = new GreenfootImage[8];
     
     int jumpSpeed = 0;
-    int climbSpeedX = 0;
     int climbSpeedY = 0;
-    
     int totalPoints = 0;
-    
-    SimpleTimer jumpTimer = new SimpleTimer();
     int upCounter = 0;
     int downCounter = 0;
     
     SimpleTimer animationTimer = new SimpleTimer();
+    
     String facing = "right";
     
     public Knight()
@@ -30,13 +27,13 @@ public class Knight extends Actor
         {
             knightRight[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
             knightRight[i].mirrorHorizontally();
-            knightRight[i].scale(80, 80);
+            knightRight[i].scale(70, 70);
         }
         
         for(int i = 0; i < knightLeft.length; i++)
         {
             knightLeft[i] = new GreenfootImage("images/wizard spritesheet/sprite_0" + (i + 69) + ".png");
-            knightLeft[i].scale(80, 80);
+            knightLeft[i].scale(70, 70);
         }
         
         animationTimer.mark();
@@ -70,28 +67,41 @@ public class Knight extends Actor
         animateKnight();
         jump();
         climbLadder();
+        
+        // climbing ladder
         if(totalPoints > 3)
         {
-            if(getX() > 510 && getX() < 580 && getY() > 213 && Greenfoot.isKeyDown("e"))
+            if(getX() > 510 && getX() < 580 && getY() > 219 && Greenfoot.isKeyDown("e"))
             {
-                setLocation(getX() + climbSpeedX, getY() - climbSpeedY);
+                setLocation(getX(), getY() - climbSpeedY);
+                if(getY() == 219)
+                {
+                    totalPoints = 0;
+                }
             }
             
-            if(getX() > 0 && getX() < 85 && getY() > 83 && Greenfoot.isKeyDown("e"))
+            if(getX() > 0 && getX() < 85 && getY() > 87 && Greenfoot.isKeyDown("e"))
             {
-                setLocation(getX() + climbSpeedX, getY() - climbSpeedY);
+                setLocation(getX(), getY() - climbSpeedY);
+                if(getY() == 87)
+                {
+                    totalPoints = 0;
+                }
             }
+            
         }
+        
+        // jumping
         setLocation(getX(), getY() - jumpSpeed);
         
-        if(getY() == 363 || getY() == 213 || getY() == 83 || upCounter != 0 || downCounter != 0)
+        if(getY() == 367 || getY() == 219 || getY() == 87 || upCounter != 0 || downCounter != 0)
         {
             if(Greenfoot.isKeyDown("a")){
-                move(-3);
+                move(-2);
                 facing = "left";
             }
             else if(Greenfoot.isKeyDown("d")){
-                move(3);
+                move(2);
                 facing = "right";
             }
             
@@ -138,8 +148,7 @@ public class Knight extends Actor
     {
         if(getY() > 266)
         {
-            climbSpeedX = 1;
-            climbSpeedY = 5;
+            climbSpeedY = 2;
         }
     }
 }

@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Healthbar extends Actor
 {
     GreenfootImage[] healthbarImage = new GreenfootImage[6];
+    
     /**
      * Act - do whatever the Healthbar wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -25,11 +26,7 @@ public class Healthbar extends Actor
     
     public void getHealth(int numHealth)
     {
-        /*if(numHealth != 5)
-        {
-            return;
-        }*/
-        
+        setImage(healthbarImage[numHealth]);
     }
     
     public void act()

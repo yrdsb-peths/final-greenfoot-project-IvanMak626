@@ -15,7 +15,7 @@ public class Ladder extends Actor
     public Ladder()
     {
         GreenfootImage ladderImage = new GreenfootImage("images/ladder sprite.png");
-        ladderImage.scale(170, 170);
+        ladderImage.scale(75, 150);
         setImage(ladderImage);
     }
     
