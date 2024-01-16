@@ -95,6 +95,7 @@ public class Fireball extends Actor
     }
     
     
+    
     public void hitOrc()
     {
         facing = "null";

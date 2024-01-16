@@ -7,22 +7,28 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MyWorld extends World
-{
-    SimpleTimer orcTimer = new SimpleTimer();
+{    
     Knight knight = new Knight();
+    
     Orc orc = new Orc();
+    
     Ladder ladderOne = new Ladder();
     Ladder ladderTwo = new Ladder();
-    Healthbar healthbar = new Healthbar();
+    Door door = new Door();
+    
+    Healthbar healthbarOrc = new Healthbar();
+    Healthbar healthbarKnight = new Healthbar();
+    
     Locked_Level darkScreenOne = new Locked_Level(675);
     Locked_Level darkScreenTwo = new Locked_Level(350);
     
     boolean orcSpawned = false;
     boolean fireballSpawned = false;
     
-    int totalSpawned = 0;
+    int totalOrcSpawned = 0;
     int towerStage = 1;
     
+    SimpleTimer orcTimer = new SimpleTimer();
     SimpleTimer fireballTimer = new SimpleTimer();
     
     public MyWorld()
@@ -31,10 +37,11 @@ public class MyWorld extends World
         super(600, 400, 1);
         
         buildPlatform();
-        addObject(knight, 300, 367);
-        spawnOrc();
         addObject(darkScreenOne, getWidth()/2, 137);
-        
+        addObject(darkScreenTwo, getWidth()/2, 71);
+        addObject(knight, 300, 367);
+        addObject(healthbarKnight, knight.getX(), knight.getY() - 22);
+        spawnOrc();
     }
     
     
@@ -57,9 +64,9 @@ public class MyWorld extends World
         orcSpawned = getObjects(Orc.class).size() != 0; 
         if(orcSpawned == false)
         {
-            if(totalSpawned == 3 && orcSpawned == false)
+            if(totalOrcSpawned == 3 && orcSpawned == false)
             {
-                totalSpawned = 4;
+                totalOrcSpawned = 4;
             }
 
             spawnOrc();
@@ -83,6 +90,7 @@ public class MyWorld extends World
                 addObject(blockTwo, i, 133);
             }
         }
+        addObject(door, 540, 65);
         addObject(ladderOne, 50, 195);
         addObject(ladderTwo, 550, 330);
     }
@@ -94,24 +102,29 @@ public class MyWorld extends World
         fireballSpawned = true;
         if(Greenfoot.getMouseInfo().getX() > knight.getX())
         {
-            fireball.fireSpeed(3);
+            fireball.fireSpeed(4);
             fireball.fireDirection("right");
             addObject(fireball, knight.getX(), knight.getY());
         }
         else if(Greenfoot.getMouseInfo().getX() < knight.getX())
         {
-            fireball.fireSpeed(-3);
+            fireball.fireSpeed(-4);
             fireball.fireDirection("left");
             addObject(fireball, knight.getX(), knight.getY());
         }
     }
     
     
-    public void setOrcHealth(int health)
+    public void setOrcHealth(int healthOrc)
     {
-        healthbar.getHealth(health);
+        healthbarOrc.getHealth(healthOrc);
     }
     
+    
+    public void setKnightHealth(int healthKnight)
+    {
+        healthbarKnight.getHealth(healthKnight);
+    }
     
     public void getKnightPos()
     {
@@ -129,9 +142,10 @@ public class MyWorld extends World
     }
     
     
+    
     public void ladderTouchKnight()
     {
-        if((knight.getY() > 266 && totalSpawned > 3))
+        if((knight.getY() > 266 && totalOrcSpawned > 3))
         {
             knight.climbLadder();
         }
@@ -140,20 +154,19 @@ public class MyWorld extends World
     
     public void ladderClimb()
     {
-        if(totalSpawned > 3)
+        if(totalOrcSpawned > 3)
         {
             knight.points(4);
             if(knight.getY() == 367)
             {
                 removeObject(darkScreenOne);
-                addObject(darkScreenTwo, getWidth()/2, 71);
             }
-            else if(knight.getY() == 219)
+            if(knight.getY() == 219)
             {
                 removeObject(darkScreenTwo);
             }
-            removeObject(healthbar);
-            totalSpawned = 0;
+            removeObject(healthbarOrc);
+            totalOrcSpawned = 0;
             towerStage++;
         }
     }
@@ -163,34 +176,63 @@ public class MyWorld extends World
     {
         orc = new Orc();
         orcSpawned = true;
-        if(totalSpawned < 3)
+        if(totalOrcSpawned < 3)
         {
             if(knight.getY() > 266 && towerStage == 1)
             {
-                totalSpawned++;
+                totalOrcSpawned++;
                 addObject(orc, 600, 363);
                 orc.orcDirection("right");
-                addObject(healthbar, orc.getX()+3, orc.getY()-22);
+                addObject(healthbarOrc, orc.getX()+3, orc.getY()-22);
             }
             else if(knight.getY() == 219 && towerStage == 2)
             {
-                totalSpawned++;
+                totalOrcSpawned++;
                 addObject(orc, 0, 219);
                 orc.orcDirection("left");
-                addObject(healthbar, orc.getX()+3, orc.getY()-22);
+                addObject(healthbarOrc, orc.getX()-4, orc.getY()-22);
             }
             else if(knight.getY() == 87 && towerStage == 3)
             {
-                totalSpawned++;
-                addObject(orc, 600, 87);
+                totalOrcSpawned++;
+                addObject(orc, 600, 85);
                 orc.orcDirection("right");
-                addObject(healthbar, orc.getX()+3, orc.getY()-22);
+                addObject(healthbarOrc, orc.getX()+3, orc.getY()-22);
             }
         }
     }
     
-    public void orcHealth()
+    
+    
+    public void enemyHealth()
     {
-        healthbar.setLocation(orc.getX()+3, orc.getY()-22);
+        if(towerStage == 2)
+        {
+            healthbarOrc.setLocation(orc.getX()-4, orc.getY()-22);
+        }
+        else
+        {
+            healthbarOrc.setLocation(orc.getX()+3, orc.getY()-22);
+        }
+    }
+    
+    
+    public void knightHealth()
+    {
+        healthbarKnight.setLocation(knight.getX(), knight.getY() - 30);
+    }
+    
+    
+    public void endDoor()
+    {
+        Label gameWin = new Label("You Win!", 100);
+        addObject(gameWin, 300, 200);
+    }
+    
+    
+    public void gameOver()
+    {
+        Label gameOverLabel = new Label("Game Over", 100);
+        addObject(gameOverLabel, 300, 200);
     }
 }

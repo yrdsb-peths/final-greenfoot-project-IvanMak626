@@ -10,14 +10,20 @@ public class Knight extends Actor
 {
     GreenfootImage[] knightRight = new GreenfootImage[8];
     GreenfootImage[] knightLeft = new GreenfootImage[8];
+    GreenfootImage[] knightDefeat = new GreenfootImage[6];
     
     int jumpSpeed = 0;
+    int shiftSpeed = 0;
     int climbSpeedY = 0;
     int totalPoints = 0;
     int upCounter = 0;
     int downCounter = 0;
+    int health;
     
     SimpleTimer animationTimer = new SimpleTimer();
+    SimpleTimer orcHitBuffer = new SimpleTimer();
+    SimpleTimer defeatTimer = new SimpleTimer();
+    
     
     String facing = "right";
     
@@ -38,6 +44,7 @@ public class Knight extends Actor
         
         animationTimer.mark();
         setImage(knightRight[0]);
+        this.health = 5;
     }
     
     int imageIndex = 0;
@@ -64,10 +71,24 @@ public class Knight extends Actor
     
     public void act()
     {
+        MyWorld world = (MyWorld) getWorld();
+        if(isTouching(Orc.class) && orcHitBuffer.millisElapsed() > 1000)
+        {
+            orcHitBuffer.mark();
+            health--;
+        }
+        world.setKnightHealth(health);
+        world.knightHealth();
         animateKnight();
         jump();
         climbLadder();
         
+        
+        if(isTouching(Door.class) && Greenfoot.isKeyDown("e") && totalPoints > 3)
+        {
+            world.endDoor();
+            Greenfoot.stop();
+        }
         // climbing ladder
         if(totalPoints > 3)
         {
@@ -92,7 +113,7 @@ public class Knight extends Actor
         }
         
         // jumping
-        setLocation(getX(), getY() - jumpSpeed);
+        setLocation(getX() + shiftSpeed, getY() - jumpSpeed);
         
         if(getY() == 367 || getY() == 219 || getY() == 87 || upCounter != 0 || downCounter != 0)
         {
@@ -109,29 +130,75 @@ public class Knight extends Actor
             {
                 if(jumpSpeed == 0)
                 {
+                    if(facing.equals("right") && Greenfoot.isKeyDown("d"))
+                    {
+                        shiftSpeed = 1;
+                    }
+                    else if(facing.equals("left") && Greenfoot.isKeyDown("a"))
+                    {
+                        shiftSpeed = -1;
+                    }
                     jumpSpeed = 4;
                 }
             }
         }
+        
+        if(health == 0)
+        {
+            world.gameOver();
+            Greenfoot.stop();
+            
+        }
     }
+    
     
     public void points(int total)
     {
         totalPoints = total;
     }
     
+    
+    
     public void jump()
     {
-        if(upCounter > 13)
+        if(upCounter > 25)
         {
             jumpSpeed = -4;
             upCounter = 0;
         }
-        else if(downCounter > 13)
+        else if(downCounter > 25)
         {
             jumpSpeed = 0;
             downCounter = 0;
+            shiftSpeed = 0;
         }
+        else if(upCounter > 12 && upCounter <= 14)
+        {
+            jumpSpeed = 3;
+        }
+        else if(downCounter > 12 && downCounter <= 14)
+        {
+            jumpSpeed = -3;
+        }
+        else if(upCounter > 14 && upCounter <= 17)
+        {
+            jumpSpeed = 2;
+        }
+        else if(downCounter > 14 && downCounter <= 17)
+        {
+            jumpSpeed = -2;
+        }
+        else if(upCounter > 17 && upCounter <= 20)
+        {
+            jumpSpeed = 1;
+        }
+        else if(downCounter > 17 && downCounter <= 20)
+        {
+            jumpSpeed = -1;
+        }
+        
+        
+        
         if(jumpSpeed > 0)
         {
             upCounter += 1;
@@ -141,7 +208,6 @@ public class Knight extends Actor
             downCounter += 1;
         }
     }
-    
     
     
     public void climbLadder()

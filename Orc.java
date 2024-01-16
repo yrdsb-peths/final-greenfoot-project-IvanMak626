@@ -105,6 +105,7 @@ public class Orc extends Enemy
         orcIndex = (orcIndex + 1) % orcDefeat.length;
     }
     
+    
     public void hitFireball()
     {
         bufferTimer.mark();
@@ -125,11 +126,12 @@ public class Orc extends Enemy
         }
     }
     
+    
     public void orcAction()
     {
         MyWorld world = (MyWorld) getWorld();
         world.getKnightPos();
-        world.orcHealth();
+        world.enemyHealth();
     }
     
     
