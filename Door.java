@@ -8,19 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Door extends Actor
 {
+    // creates the final door that allows the player to win
     public Door()
     {
         GreenfootImage doorImage = new GreenfootImage("images/castle door.png");
         doorImage.scale(100, 115);
         setImage(doorImage);
-    }
-    
-    /**
-     * Act - do whatever the Door wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        
     }
 }

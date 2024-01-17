@@ -8,10 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Locked_Level extends Actor
 {
-    public Locked_Level(int height)
+    public Locked_Level(int width, int height)
     {
         GreenfootImage lockedScreen = new GreenfootImage("images/unlock in game.png");
-        lockedScreen.scale(1100, height);
+        lockedScreen.scale(width, height);
         setImage(lockedScreen);
     }
     

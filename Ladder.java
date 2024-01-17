@@ -8,10 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ladder extends Actor
 {
-    /**
-     * Act - do whatever the Ladder wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    //contructs the ladders on the first and second floor
     public Ladder()
     {
         GreenfootImage ladderImage = new GreenfootImage("images/ladder sprite.png");
@@ -20,7 +17,9 @@ public class Ladder extends Actor
     }
     
     
-    
+    /* if ladder is touching the knight and the 'e' key is pressed, 
+     *  call the ladderTouchKnight() method from the MyWorld class
+    */
     public void act()
     {
         MyWorld world = (MyWorld) getWorld();
