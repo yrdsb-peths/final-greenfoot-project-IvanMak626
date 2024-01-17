@@ -11,8 +11,7 @@ public class TitleScreen extends World
     //variables
     StartButton startButton = new StartButton();
     TitleLabel titleLabel = new TitleLabel();
-    Locked_Level ruleBox= new Locked_Level(450, 150);
-    Label rules = new Label("How To Play", 45);
+    InstructionButton instruction = new InstructionButton();
     
     public TitleScreen()
     {
@@ -31,7 +30,7 @@ public class TitleScreen extends World
             Greenfoot.setWorld(gameWorld);
         }
         //if instruction button is pressed, go to RulesBackground world
-        if(Greenfoot.mouseClicked(ruleBox) || Greenfoot.mouseClicked(rules))
+        if(Greenfoot.mouseClicked(instruction))
         {
             RulesBackground rulesBg = new RulesBackground();
             Greenfoot.setWorld(rulesBg);
@@ -41,9 +40,9 @@ public class TitleScreen extends World
     //prepare title screen
     private void prepare()
     {
-        addObject(ruleBox, 300, 188);
+        
+        addObject(instruction, 300, 350);
         addObject(titleLabel, 300, 90);
-        addObject(startButton, 300, 300);
-        addObject(rules, 300, 185);
+        addObject(startButton, 300, 240);
     }
 }

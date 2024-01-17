@@ -13,6 +13,7 @@ public class Orc extends Enemy
     GreenfootImage[] orcLeft = new GreenfootImage[8];
     GreenfootImage[] orcDefeat = new GreenfootImage[8];
     
+    
     //timers
     SimpleTimer animationTimer = new SimpleTimer();
     SimpleTimer bufferTimer = new SimpleTimer();
@@ -128,6 +129,8 @@ public class Orc extends Enemy
         if(health == 0){
             MyWorld world = (MyWorld) getWorld();
             world.setOrcHealth(0);
+            GreenfootSound orcDeath = new GreenfootSound("sounds/Lego yoda death sound.mp3");
+            orcDeath.play();
         }
     }
     

@@ -80,6 +80,10 @@ public class Fireball extends Actor
         //if fireball hits an orc, call the hitOrc() method
         if(isTouching(Orc.class))
         {
+            /* sidenote:
+             * I couldn't do anything to adjust the hitboxes of the orc as
+             * the dimensions of each png is locked from the spritesheet cutter
+             */
             hitOrc();
         }
         /*if the fireball is touching the left or right border of the world, 

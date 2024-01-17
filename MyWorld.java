@@ -227,6 +227,7 @@ public class MyWorld extends World
     // if not all orcs have been spawned on the specified floor, spawn an orc and its healthbar above it
     public void spawnOrc()
     {
+        int randNum = Greenfoot.getRandomNumber(2);
         orc = new Orc();
         orcSpawned = true;
         if(totalOrcSpawned < 3 && towerStage == 1)
@@ -234,7 +235,14 @@ public class MyWorld extends World
             if(knight.getY() > 266)
             {
                 totalOrcSpawned++;
-                addObject(orc, 600, 363);
+                if(randNum == 0)
+                {
+                    addObject(orc, 600, 363);
+                }
+                else
+                {
+                    addObject(orc, 0, 363);
+                }
                 orc.orcDirection("right");
                 addObject(healthbarOrc, orc.getX()+3, orc.getY()-22);
             }
@@ -244,7 +252,14 @@ public class MyWorld extends World
             if(knight.getY() == 219 && towerStage == 2)
             {
                 totalOrcSpawned++;
-                addObject(orc, 0, 219);
+                if(randNum == 0)
+                {
+                    addObject(orc, 600, 219);
+                }
+                else
+                {
+                    addObject(orc, 0, 219);
+                }
                 orc.orcDirection("left");
                 addObject(healthbarOrc, orc.getX()-4, orc.getY()-22);
             }
@@ -254,7 +269,14 @@ public class MyWorld extends World
             if(knight.getY() == 87)
             {
                 totalOrcSpawned++;
-                addObject(orc, 600, 85);
+                if(randNum == 0)
+                {
+                    addObject(orc, 600, 85);
+                }
+                else
+                {
+                    addObject(orc, 0, 85);
+                }
                 orc.orcDirection("right");
                 addObject(healthbarOrc, orc.getX()+3, orc.getY()-22);
             }
