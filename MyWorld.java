@@ -12,6 +12,9 @@ public class MyWorld extends World
     Knight knight = new Knight();
     Orc orc = new Orc();
     
+    //label
+    Label topText = new Label("Defeat all the orcs on each floor to win!", 30);
+    
     //interactive objects
     Ladder ladderOne = new Ladder();
     Ladder ladderTwo = new Ladder();
@@ -24,6 +27,7 @@ public class MyWorld extends World
     // timers
     SimpleTimer orcTimer = new SimpleTimer();
     SimpleTimer fireballTimer = new SimpleTimer();
+    SimpleTimer topTextTimer = new SimpleTimer();
     
     // "locked" levels
     Locked_Level darkScreenOne = new Locked_Level(1100, 675);
@@ -48,12 +52,17 @@ public class MyWorld extends World
         addObject(darkScreenTwo, getWidth()/2, 71);
         addObject(knight, 300, 367);
         addObject(healthbarKnight, knight.getX(), knight.getY() - 22);
+        addObject(topText, 300, 200);
         spawnOrc();
     }
     
     
     public void act()
     {
+        if(topTextTimer.millisElapsed() > 5000)
+        {
+            removeObject(topText);
+        }
         ladderClimb();
         knight.getTowerStage(towerStage);
         if(Greenfoot.mouseClicked(null) == true)
@@ -64,7 +73,7 @@ public class MyWorld extends World
             fireballSpawned = getObjects(Fireball.class).size() != 0;
             
             //buffers a fireball shot for 1000 milliseconds if previous fireball hits orc too quickly
-            if(fireballSpawned == false) //&& fireballTimer.millisElapsed() > 1000)
+            if(fireballSpawned == false && fireballTimer.millisElapsed() > 1000)
             {
                 spawnFireball();
                 //reset fireballTimer
@@ -132,14 +141,14 @@ public class MyWorld extends World
         {
             fireball.fireSpeed(4);
             fireball.fireDirection("right");
-            addObject(fireball, knight.getX(), knight.getY());
+            addObject(fireball, knight.getX()+1, knight.getY());
         }
         // if mouse is on left of knight, shoot left
         else if(Greenfoot.getMouseInfo().getX() < knight.getX())
         {
             fireball.fireSpeed(-4);
             fireball.fireDirection("left");
-            addObject(fireball, knight.getX(), knight.getY());
+            addObject(fireball, knight.getX()-1, knight.getY());
         }
     }
     
