@@ -32,6 +32,7 @@ public class MyWorld extends World
     // "locked" levels
     Locked_Level darkScreenOne = new Locked_Level(1100, 675);
     Locked_Level darkScreenTwo = new Locked_Level(1100, 350);
+    Locked_Level darkScreenThree = new Locked_Level(200, 200);
     
     // primitives
     boolean orcSpawned = false;
@@ -327,5 +328,6 @@ public class MyWorld extends World
     {
         Label gameOverLabel = new Label("Game Over", 100);
         addObject(gameOverLabel, 300, 200);
+        addObject(darkScreenThree, 100, 200);
     }
 }

@@ -94,7 +94,10 @@ public class Knight extends Actor
         if(isTouching(Orc.class) && orcHitBuffer.millisElapsed() > 1000)
         {
             orcHitBuffer.mark();
-            health--;
+            if(health > 0)
+            {
+                health--;
+            }
         }
         world.setKnightHealth(health);
         world.knightHealth();
