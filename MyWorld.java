@@ -35,6 +35,8 @@ public class MyWorld extends World
     int totalOrcSpawned = 0;
     int towerStage = 1;
     
+    GreenfootSound fireballSound = new GreenfootSound("sounds/fireball sound.mp3");
+    
     // adds the objects that the player first sees when going into MyWorld
     public MyWorld()
     {    
@@ -62,7 +64,7 @@ public class MyWorld extends World
             fireballSpawned = getObjects(Fireball.class).size() != 0;
             
             //buffers a fireball shot for 1000 milliseconds if previous fireball hits orc too quickly
-            if(fireballSpawned == false && fireballTimer.millisElapsed() > 1000)
+            if(fireballSpawned == false) //&& fireballTimer.millisElapsed() > 1000)
             {
                 spawnFireball();
                 //reset fireballTimer
@@ -121,6 +123,7 @@ public class MyWorld extends World
     // when mouse is clicked and if there isn't already a fireball spawned, spawn a fireball
     public void spawnFireball()
     {
+        fireballSound.play();
         Fireball fireball = new Fireball();
         fireballSpawned = true;
         

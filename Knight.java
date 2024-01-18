@@ -108,6 +108,8 @@ public class Knight extends Actor
         if(isTouching(Door.class) && Greenfoot.isKeyDown("e") && totalPoints > 7)
         {
             world.endDoor();
+            GreenfootSound winSound = new GreenfootSound("sounds/crowd cheer.mp3");
+            winSound.play();
             Greenfoot.stop();
         }
         // climbing ladder
@@ -150,6 +152,8 @@ public class Knight extends Actor
         
         if(health == 0)
         {
+            GreenfootSound defeat = new GreenfootSound("sounds/defeat sound.mp3");
+            defeat.play();
             world.gameOver();
             Greenfoot.stop();
             
